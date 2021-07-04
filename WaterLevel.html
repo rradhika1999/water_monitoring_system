@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My first chart using FusionCharts Suite XT</title>
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js?cacheBust=56"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://simeydotme.github.io/jQuery-ui-Slider-Pips/dist/js/jquery-plus-ui.min.js"></script>
+<script src="https://simeydotme.github.io/jQuery-ui-Slider-Pips/dist/js/jquery-ui-slider-pips.js"></script>
+<link rel="stylesheet" href="https://simeydotme.github.io/jQuery-ui-Slider-Pips/dist/css/jqueryui.min.css">
+<link rel="stylesheet" href="https://simeydotme.github.io/jQuery-ui-Slider-Pips/dist/css/jquery-ui-slider-pips.min.css">
+<link rel="stylesheet" href="https://simeydotme.github.io/jQuery-ui-Slider-Pips/dist/css/app.min.css">
+<style>
+.raphael-group-7-background rect {
+fill: rgb(218, 218, 218) !important;
+}
+[id*=flat-slider-vertical-1].ui-slider.ui-slider-vertical {
+	height: 300px;
+	margin-top: 90px;
+    margin-right: 15%;
+    margin-bottom: 10px;
+    margin-left: 10%;
+}
+[id*=flat-slider-vertical-2].ui-slider.ui-slider-vertical {
+	height: 300px;
+	margin-top:90px;
+    margin-right: 15%;
+    margin-bottom: 10px;
+    margin-left: 10%;
+}
+$bg: #434d5a;
+[id*=flat-slider].ui-slider,
+[id*=flat-slider].ui-slider .ui-slider-pip .ui-slider-line {
+    background: lighten($bg, 15%);
+}
+[id*=flat-slider].ui-slider .ui-slider-handle .ui-slider-tip:after {
+    border-left-color: #434d5a;
+}
+[id*=flat-slider].ui-slider .ui-slider-handle.ui-state-hover, 
+[id*=flat-slider].ui-slider .ui-slider-handle.ui-state-focus, 
+[id*=flat-slider].ui-slider .ui-slider-handle.ui-state-active {
+      border-color: white; }
+body {
+background-image: url("data:image/jpeg;base64,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");
+    
+ 
+    font-family: "Roboto";
+}
+.stuff {    
+    padding: 5px 10px 10px;
+    max-width: 100px;    
+	max-height: 150px;    
+}
+div.inline { float:left; }
+.clearBoth { clear:both; }
+
+</style>
+<script>
+$(document).ready(function() {
+            setInterval("get_motor_status()", 2000);
+        });
+				
+        function get_motor_status() {
+            var someUrl = "/motor_status";
+            $.ajax({url: someUrl,dataType: "text",success: function(response) {
+                    if (response == "on")
+                        $("#status").html("Motor ON")
+                    else
+                        $("#status").html("Motor OFF")
+                   }})}		
+				
+    </script>
+	
+<script type="text/javascript">
+    FusionCharts.ready(function(){
+    var fusioncharts1 = new FusionCharts({
+    "type": "cylinder",
+    "dataFormat": "json",
+    "id": "fuelMeter-1",
+    "renderAt": "chart-container1",
+    "width": "240",
+    "height": "450",
+    "dataSource": {
+        "chart": {
+    	    "chartLeftMargin": "30",
+    	    "chartTopMargin": "40",
+    	    "chartRightMargin": "40",
+    	    "chartBottomMargin": "40",
+            "theme": "fint",
+            "caption": "Water Level in Tank",
+            "subcaption": "at my Home",
+            "lowerLimit": "0",
+            "upperLimit": "30",
+            "lowerLimitDisplay": "Empty",
+            "upperLimitDisplay": "Full",
+            "numberSuffix": " ltrs",
+            "showValue": "10",
+        },
+        "value":"20"
+   	 },
+    "events": {
+    "rendered": function(evtObj, argObj) {
+	setInterval(function() {
+	var someUrl = "/level";
+					$.ajax({
+						url: someUrl,
+						dataType: "text",
+						success: function(response) {
+							 evtObj.sender.feedData("&value=" + response);
+						},
+						timeout: 2000
+					})	
+		
+        }, 1000); 
+   }
+}
+});
+   fusioncharts1.render(); 
+    });
+ FusionCharts.ready(function(){
+    var fusioncharts2 = new FusionCharts({
+    "type": "cylinder",
+    "dataFormat": "json",
+    "id": "fuelMeter-2",
+    "renderAt": "chart-container2",
+    "width": "240",
+    "height": "450",
+    "dataSource": {
+        "chart": {
+    	    "chartLeftMargin": "30",
+    	    "chartTopMargin": "20",
+    	    "chartRightMargin": "40",
+    	    "chartBottomMargin": "40",
+            "theme": "fint",
+            "caption": "Water Level in Sump",
+            "subcaption": "at my Home",
+            "lowerLimit": "0",
+            "upperLimit": "30",
+            "lowerLimitDisplay": "Empty",
+            "upperLimitDisplay": "Full",
+            "numberSuffix": " ltrs",
+            "showValue": "10",
+        },
+        "value":"20"
+   	 },
+    "events": {
+    "rendered": function(evtObj, argObj) {
+	setInterval(function() {
+	var someUrl = "/level";
+					$.ajax({
+						url: someUrl,
+						dataType: "text",
+						success: function(response) {
+							 evtObj.sender.feedData("&value=" + response);
+						},
+						timeout: 2000
+					})	
+		
+        }, 1000); 
+   }
+}
+});
+    fusioncharts2.render();
+    });
+
+</script>
+</head>
+<body>
+<div style="width:600px;margin:auto;">
+
+<div class="stuff">
+ 
+    <main>        
+        <div style="margin-left: 0px; position:absolute;" class="inline" id="flat-slider-vertical-1"></div>
+	<div style="margin-left: 28px;position:relative;" id="chart-container1" style="width: 45%; height: 300px;display: inline-block;"></div>
+    </main>
+    
+</div>
+<div class="stuff">
+ 
+    <main>        
+	<div style="margin-left: 370px;" class="inline" id="flat-slider-vertical-2"></div>
+	<div style="margin-left: 400px;" id="chart-container2" style="width: 45%; height: 300px; display: inline-block;"></div>
+    </main>
+    
+</div>
+    
+	   
+ </div>
+
+<script>
+$.extend( $.ui.slider.prototype.options, { 
+    animate: 300
+});
+
+
+$("#flat-slider")
+    .slider({
+        max: 20,
+        min: 0,
+        range: true,
+	slide: function( event, ui ) {
+		console.log(ui.values);
+		var someUrl = "/configRange?lower=" + ui.values[0]+"&upper="+ui.values[1];
+            $.ajax(
+			{
+				url: someUrl,dataType: "text",success: function(response) {}
+			})               
+        }	
+		
+    })
+    .slider("pips", {
+        first: "pip",
+        last: "pip"
+    });	
+
+$("#flat-slider-vertical-1")
+    .slider({
+        max: 20,
+        min: 0,
+        range: true,
+        values: [3, 18],
+        orientation: "vertical"
+    });
+ 
+    $("#flat-slider-vertical-2")
+    .slider({
+        max: 20,
+        min: 0,
+        range: true,
+        values: [2, 19],
+        orientation: "vertical"
+    });
+    $("#flat-slider-vertical-1, #flat-slider-vertical-2")
+    .slider("pips", {
+        first: "pip",
+        last: "pip"
+    })
+    .slider("float");
+</script>
+
+	</body>
+</html>
